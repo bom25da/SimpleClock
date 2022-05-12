@@ -1,14 +1,23 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 //import Clock from './src/Clock/Clock_Type1.js';
-import Clock from './screens/Clock/Clock.js';
-import Weather from './screens/Weather/Weather.js';
+import Clock from './Clock/Clock.js';
+import Weather from './Weather/Weather.js';
 //import KwCalendar from './src/Calendar/Calendar.js';
 
-const App = () => {
+
+const Main = ({navigation}) => {
     return(
         <View style = {styles.container}>
             <View style = {styles.top}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Setting')}>
+                    <Image
+                        source={require('../assets/images/setting/setting.png')}
+                        resizeMode='center'
+                        style={{width: 30, height: 30, margin: 10}} />
+                </TouchableOpacity>
             </View>
             <View style = {styles.center}>
                 <Clock></Clock>
@@ -30,6 +39,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flex: 0.1,
         flexDirection: 'row',
+        justifyContent: 'flex-end',
         //alignItems:'center'
         //backgroundColor: 'red',
     },
@@ -45,6 +55,14 @@ const styles = StyleSheet.create({
         //backgroundColor: 'red',
         justifyContent: 'center',
     },
+
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        height: 70,
+        marginBottom: 30,
+    }
 })
 
-export default App
+export default Main
