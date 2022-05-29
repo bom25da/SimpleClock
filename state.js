@@ -18,6 +18,11 @@ const timeState = atom({
     default: moment(),
 })
 
+const nowDateState = atom({
+    key: 'nowDate',
+    default: moment().format('YYYYMMDD'),
+})
+
 const isLoadingState = atom({
     key: 'isLoading',
     default: true,
@@ -65,6 +70,7 @@ const fontCodeState = atom({
 
 export {
     remaingDayState,
+    nowDateState,
     timeState, 
     isLoadingState, 
     thisWetState, 

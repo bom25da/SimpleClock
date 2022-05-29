@@ -98,7 +98,7 @@ const Clock = () => {
         )
     }
 
-    console.log({ClockType})
+    //console.log({ClockType})
 
     if(ClockType == 'digital') {
         return(

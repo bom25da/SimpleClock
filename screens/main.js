@@ -4,6 +4,7 @@ import { Image, View, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import Clock from './Clock/Clock.js';
 import Weather from './Weather/Weather.js';
 import Dday from './Dday/Dday.js';
+import Analects from './Analects/Analects.js';
 //import KwCalendar from './src/Calendar/Calendar.js';
 
 
@@ -30,6 +31,7 @@ const Main = ({navigation}) => {
                 <Weather></Weather>
             </View>
             <View style = {styles.wiseSaying}>
+                <Analects></Analects>
             </View>
         </View>
     )
