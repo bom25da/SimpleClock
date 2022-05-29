@@ -1,31 +1,119 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Switch} from 'react-native'
+import React, {useState} from 'react'
+import {View, Text, StyleSheet, Switch, TouchableOpacity, Modal, Pressable } from 'react-native'
+import { RadioButton } from 'react-native-paper'
+//import Modal from 'react-native-simple-modal'
+import {
+    isAnalectsState, 
+    isDdayState, 
+    clockModalState, 
+    clockCodeState, 
+    fontModalState, 
+    fontCodeState} from '../../state.js'
+import {
+    RecoilRoot,
+    atom,
+    selector,
+    useRecoilState,
+    useRecoilValue,
+} from 'recoil'
 
 const Setting = () => {
 
-    const [isAnalects, setIsAnalects] = useState(false);
+    const [isAnalects, setIsAnalects] = useRecoilState(isAnalectsState);
     const switchAnal = () => setIsAnalects(previousState => !previousState);
 
-    const [isDday, setIsDday] = useState(false);
+    const [isDday, setIsDday] = useRecoilState(isDdayState);
     const switchDday = () => setIsDday(previousState => !previousState);
+
+    const [clockModal, setClockModal] = useRecoilState(clockModalState);
+    const [clockCode, setClockCode] = useRecoilState(clockCodeState);
+
+    const [fontModal, setFontModal] = useRecoilState(fontModalState);
+    const [fontCode, setFontCode] = useRecoilState(fontCodeState);
+
+    const clockName = {
+        analog: '아날로그시계',
+        digital: '디지털시계',
+    }
+
+    const fontName = {
+        dotum: '돋움체',
+        gothic: '고딕체',
+    }
 
     return (
         <View style={styles.container}>
+            <Modal
+                style={{alignItems:'center', justifyContent:'center'}}
+                visible={clockModal}
+                transparent={true}
+                animationType='fade'>
+                    <Pressable style={{flex:1, backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                        onPress={() => setClockModal(false)}>
+                    </Pressable >
+                    <View style={styles.modalView}>
+                        <RadioButton.Group 
+                            onValueChange={value => {
+                                setClockCode(value)
+                                setClockModal(false)}}
+                            value={clockCode}>
+                            <RadioButton.Item
+                                value="digital"
+                                label="디지털시계" />
+                            <RadioButton.Item
+                                value="analog"
+                                label="아날로그시계" />
+                        </RadioButton.Group>
+                    </View>
+            </Modal>
+
+            <Modal
+                style={{alignItems:'center', justifyContent:'center'}}
+                visible={fontModal}
+                transparent={true}
+                animationType='fade'>
+                    <Pressable style={{flex:1, backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                        onPress={() => setFontModal(false)}>
+                    </Pressable >
+                    <View style={styles.modalView}>
+                        <RadioButton.Group 
+                            onValueChange={value => {
+                                setFontCode(value)
+                                setFontModal(false)}}
+                            value={fontCode}>
+                            <RadioButton.Item
+                                value="dotum"
+                                label="돋움체" />
+                            <RadioButton.Item
+                                value="gothic"
+                                label="고딕체" />
+                        </RadioButton.Group>
+                    </View>
+            </Modal>
+
             <View style={styles.top} />
             <View style={styles.set_1}>
                 <View style={styles.set_1_1}>
                     <Text style={styles.text}>시계</Text>
                 </View>
                 <View style={styles.set_1_2}>
-                    <Text style={styles.modalText}>아날로그시계</Text>
-                </View>
+                    <TouchableOpacity onPress={() => setClockModal(true)}>
+                        <View>
+                            <Text style={styles.modalText}>{clockName[clockCode]}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>                
             </View>
             <View style={styles.set_2}>
                 <View style={styles.set_2_1}>
                     <Text style={styles.text}>글씨체</Text>
                 </View>
                 <View style={styles.set_2_2}>
-                    <Text style={styles.modalText}>돋움</Text>
+                    <TouchableOpacity onPress={() => setFontModal(true)}>
+                        <View>
+                            <Text style={styles.modalText}>{fontName[fontCode]}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.set_3}>
@@ -73,6 +161,38 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
+        justifyContent: 'center',
+    },
+
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        //그림자의 영역 지정
+        shadowOffset: {
+          width: 0,
+          height:2
+        },
+        //불투명도 지정
+        shadowOpacity: 0.25,
+        //반경 지정
+        shadowRadius: 3.84,
+        //flex:1
+        position:'absolute',
+        top: 320, left: 30, right: 30, bottom: 320,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    modalText: {
+        color: 'white',
+        alignItems: 'center',
+        fontFamily: 'YUniverse-L',
+        fontSize: 20,
+        margin: 10,
     },
 
     top: {
@@ -198,14 +318,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontFamily: 'YUniverse-L',
         fontSize: 40,
-        margin: 10,
-    },
-
-    modalText: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
         margin: 10,
     },
 })
