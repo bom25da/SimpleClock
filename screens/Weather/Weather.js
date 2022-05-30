@@ -42,6 +42,9 @@ const Weather = () => {
                 setIsLoading(false)
 
                 console.log('start getweather');
+
+                console.log('[LOG] latitude : ' + position.coords.latitude);
+                console.log('[LOG] longitude : ' + position.coords.longitude);
     
                 const thisResWeather = await axios.get(
                     `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${THIS_API_KEY}&units=metric`
@@ -102,6 +105,7 @@ const Weather = () => {
         getWeather()
     },[isFocused]);
 
+    /*
     const imgParse = {
         '01d': require('../../assets/images/weather/01d.png'),
         '01n': require('../../assets/images/weather/01n.png'),
@@ -122,6 +126,7 @@ const Weather = () => {
         '50d': require('../../assets/images/weather/50d.png'),
         '50n': require('../../assets/images/weather/50n.png'),
     }
+    */
 
     return(
         <View style = {styles.container}>
@@ -131,20 +136,20 @@ const Weather = () => {
                 <View style = {styles.lastWeather}>
                     <Text style={styles.text}>Yesterday</Text>
                     <Image
-                        //source={{uri: `https://i.ibb.co/tYjGLMj/${lastIcon}.png`}}
-                        source={imgParse[lastWet.icon]}
+                        source={{uri: `http://125.128.10.133/resource/img/${lastWet.icon}.png`}}
+                        //source={imgParse[lastWet.icon]}
                         resizeMode='center'
-                        style={{width: 150, height: 150, margin: 20}}
+                        style={{width: 100, height: 100, margin: 5}}
                     />
                     <Text style={styles.text}>{Math.round(lastWet.temp)}℃</Text>  
                 </View>
                 <View style = {styles.thisWeather}>
                     <Text style={styles.text}>Today</Text>
                     <Image
-                        //source={{uri: `https://i.ibb.co/tYjGLMj/${thisIcon}.png`}}
-                        source={imgParse[thisWet.icon]}
+                        source={{uri: `http://125.128.10.133/resource/img/${thisWet.icon}.png`}}
+                        //source={imgParse[thisWet.icon]}
                         resizeMode='center'
-                        style={{width: 150, height: 150, margin: 20}}
+                        style={{width: 100, height: 100, margin: 5}}
                     />
                     <Text style={styles.text}>{Math.round(thisWet.temp)}℃</Text>  
                 </View>

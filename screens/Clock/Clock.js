@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     },
 
     dctext_time: {
-        fontSize: 170,
+        fontSize: 150,
         color: 'white',
         alignItems: 'center',
         fontFamily: 'YUniverse-L',

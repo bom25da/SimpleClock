@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet, Switch, TouchableOpacity, Modal, Pressable } from 'react-native'
+import {View, Text, StyleSheet, Switch, TouchableOpacity, Modal, Pressable, Button } from 'react-native'
 import { RadioButton } from 'react-native-paper'
 //import Modal from 'react-native-simple-modal'
 import {
@@ -8,7 +8,8 @@ import {
     clockModalState, 
     clockCodeState, 
     fontModalState, 
-    fontCodeState} from '../../state.js'
+    fontCodeState,
+    aboutMeModalState} from '../../state.js'
 import {
     RecoilRoot,
     atom,
@@ -30,6 +31,8 @@ const Setting = () => {
 
     const [fontModal, setFontModal] = useRecoilState(fontModalState);
     const [fontCode, setFontCode] = useRecoilState(fontCodeState);
+
+    const [aboutMeModal, setAboutMeModal] = useRecoilState(aboutMeModalState);
 
     const clockName = {
         analog: '아날로그시계',
@@ -91,6 +94,40 @@ const Setting = () => {
                     </View>
             </Modal>
 
+            <Modal
+                style={{alignItems:'center', justifyContent:'center'}}
+                visible={aboutMeModal}
+                transparent={true}
+                animationType='fade'
+                >
+                    <Pressable style={{flex:1, backgroundColor:'rgba(52, 52, 52, 0.8)'}}
+                        onPress={() => setAboutMeModal(false)}>
+                    </Pressable >
+                    <View style={styles.modalView_ab}>
+                        <View style={styles.ab_modal_content_1}>
+                            <Text style={styles.ab_modal_text}>
+                                기획자
+                            </Text>
+                            <Text style={styles.ab_modal_text}>
+                                정운(Jung Woon)
+                            </Text>
+                        </View>
+                        <View style={styles.ab_modal_content_2}>
+                            <Text style={styles.ab_modal_text}>
+                                개발자
+                            </Text>
+                            <Text style={styles.ab_modal_text}>
+                                권경원(Kwon Kyungwon)
+                            </Text>
+                        </View>
+                        <View style={styles.ab_modal_bottom}>
+                            <TouchableOpacity onPress={() => setAboutMeModal(false)}>
+                                <Text style={styles.ab_modal_text}>닫기</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+            </Modal>
+
             <View style={styles.top} />
             <View style={styles.set_1}>
                 <View style={styles.set_1_1}>
@@ -146,7 +183,9 @@ const Setting = () => {
             </View>
             <View style={styles.set_5}>
                 <View style={styles.set_5_1}>
-                    <Text style={styles.text}>About Me</Text>
+                    <TouchableOpacity onPress={() => setAboutMeModal(true)}>
+                        <Text style={styles.text}>About Me</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.set_5_2}>
                 </View>
@@ -185,6 +224,27 @@ const styles = StyleSheet.create({
         top: 320, left: 30, right: 30, bottom: 320,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    modalView_ab: {
+        height: 500,
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 10,
+        shadowColor: '#000',
+        //그림자의 영역 지정
+        shadowOffset: {
+          width: 0,
+          height:2
+        },
+        //불투명도 지정
+        shadowOpacity: 0.25,
+        //반경 지정
+        shadowRadius: 3.84,
+        //flex:1
+        position:'absolute',
+        top: 120, left: 30, right: 30, bottom: 120,
     },
 
     modalText: {
@@ -307,6 +367,32 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-end',
         marginRight: 20
+    },
+
+    ab_modal_content_1: {
+        flex: 0.4,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    },
+
+    ab_modal_content_2: {
+        flex: 0.4,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+    },
+
+    ab_modal_bottom: {
+        flex: 0.2,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+    },
+
+    ab_modal_text: {
+        color: 'black',
+        alignItems: 'center',
+        fontFamily: 'YUniverse-L',
+        fontSize: 20,
+        margin: 10,
     },
 
     bottom: {

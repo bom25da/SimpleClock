@@ -16,7 +16,7 @@ const Analects = () => {
     const isFocused = useIsFocused();
 
     const [analText, setAnalText] = useState('')
-    const [nowDate, setNowDate] = useRecoilState(nowDateState)
+    let nowDate = useRecoilValue(nowDateState)
     let isAnalects = useRecoilValue(isAnalectsState)
 
     async function getAnalText() {
@@ -32,15 +32,7 @@ const Analects = () => {
 
     useEffect(() => {
         getAnalText()
-        /*
-        .then(res => {
-            console.log('res')
-            setAnalText(res)
-        })
-        .catch(error=>{
-            console.log(error.response)
-        })*/
-    }, [])
+    }, [isFocused])
 
     return(
         <View style = {styles.container}>
