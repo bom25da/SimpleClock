@@ -15,8 +15,8 @@ import { useIsFocused } from '@react-navigation/native';
 const Dday = () => {
     const isFocused = useIsFocused();
 
-    const [remaingDay, setRemaingDay] = useRecoilState(remaingDayState)
-    //let remaingDay = useRecoilValue(remaingDayState)
+    //const [remaingDay, setRemaingDay] = useRecoilState(remaingDayState)
+    let remaingDay = useRecoilValue(remaingDayState)
     let isDday = useRecoilValue(isDdayState)
 
     /*

@@ -98,6 +98,7 @@ const Weather = () => {
             //setError(true);
         } finally {
             setIsLoading(false);
+            //위치정보 못찾으면 기본값으로 셋팅함 - 서울시청으로
         }
     }    
 
