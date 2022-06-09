@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import {View, Text, StyleSheet, Switch, TouchableOpacity, Modal, Pressable, Button } from 'react-native'
 import { RadioButton } from 'react-native-paper'
 //import Modal from 'react-native-simple-modal'
@@ -17,6 +17,10 @@ import {
     useRecoilState,
     useRecoilValue,
 } from 'recoil'
+import styles from './_styles'
+//import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
+import { useIsFocused } from '@react-navigation/native';
 
 const Setting = () => {
 
@@ -34,6 +38,8 @@ const Setting = () => {
 
     const [aboutMeModal, setAboutMeModal] = useRecoilState(aboutMeModalState);
 
+    const isFocused = useIsFocused();
+
     const clockName = {
         analog: '아날로그시계',
         digital: '디지털시계',
@@ -44,6 +50,29 @@ const Setting = () => {
         gothic: '고딕체',
     }
 
+    useEffect(() => {
+
+        Orientation.lockToPortrait(); // 첫 시작할때 방향 설정
+        Orientation.addOrientationListener(onOrientationChange);//리스너 설정
+        
+        return () => {
+        	Orientation.unlockAllOrientations(),
+        	Orientation.removeOrientationListener(onOrientationChange)
+        }
+        
+    },[])
+	
+    const onOrientationChange = (orientation) => {   // 세로가 되면 다시 강제로 가로 모드
+        if (orientation === 'LANDSCAPE') {  
+            Orientation.lockToLandscapeLeft();
+        }
+    }
+/*
+    useEffect(()=>{
+        Orientation.lockToPortrait(); //this will lock the view to Portrait
+        //Orientation.lockToLandscape(); //this will lock the view to Landscape
+    },[isFocused])
+*/
     return (
         <View style={styles.container}>
             <Modal
@@ -195,218 +224,5 @@ const Setting = () => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-        justifyContent: 'center',
-    },
-
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        //그림자의 영역 지정
-        shadowOffset: {
-          width: 0,
-          height:2
-        },
-        //불투명도 지정
-        shadowOpacity: 0.25,
-        //반경 지정
-        shadowRadius: 3.84,
-        //flex:1
-        position:'absolute',
-        top: 320, left: 30, right: 30, bottom: 320,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    modalView_ab: {
-        height: 500,
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 10,
-        shadowColor: '#000',
-        //그림자의 영역 지정
-        shadowOffset: {
-          width: 0,
-          height:2
-        },
-        //불투명도 지정
-        shadowOpacity: 0.25,
-        //반경 지정
-        shadowRadius: 3.84,
-        //flex:1
-        position:'absolute',
-        top: 120, left: 30, right: 30, bottom: 120,
-    },
-
-    modalText: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-        margin: 10,
-    },
-
-    top: {
-        flex: 0.1,
-    },
-
-    set_1: {
-        flex: 0.2,
-        backgroundColor: '#606060',
-        margin: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-    },
-
-    set_1_1: {
-        flex: 0.5,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginLeft: 20
-    },
-
-    set_1_2: {
-        flex: 0.5,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 20
-    },
-
-    set_2: {
-        flex: 0.2,
-        backgroundColor: '#606060',
-        margin: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-    },
-
-    set_2_1: {
-        flex: 0.5,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginLeft: 20
-    },
-
-    set_2_2: {
-        flex: 0.5,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 20
-    },
-
-    set_3: {
-        flex: 0.2,
-        backgroundColor: '#606060',
-        margin: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-    },
-
-    set_3_1: {
-        flex: 0.7,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginLeft: 20
-    },
-
-    set_3_2: {
-        flex: 0.3,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 20
-    },
-
-    set_4: {
-        flex: 0.2,
-        backgroundColor: '#606060',
-        margin: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-    },
-
-    set_4_1: {
-        flex: 0.7,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginLeft: 20
-    },
-
-    set_4_2: {
-        flex: 0.3,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 20
-    },
-
-    set_5: {
-        flex: 0.2,
-        backgroundColor: '#606060',
-        margin: 20,
-        borderRadius: 10,
-        flexDirection: 'row',
-    },
-
-    set_5_1: {
-        flex: 0.7,
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginLeft: 20
-    },
-
-    set_5_2: {
-        flex: 0.3,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 20
-    },
-
-    ab_modal_content_1: {
-        flex: 0.4,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
-
-    ab_modal_content_2: {
-        flex: 0.4,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-    },
-
-    ab_modal_bottom: {
-        flex: 0.2,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-    },
-
-    ab_modal_text: {
-        color: 'black',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-        margin: 10,
-    },
-
-    bottom: {
-        flex: 0.1,
-    },
-
-    text: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 40,
-        margin: 10,
-    },
-})
-
 
 export default Setting

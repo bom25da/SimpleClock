@@ -13,6 +13,7 @@ import {
     useRecoilValue,
 } from 'recoil'
 import { useIsFocused } from '@react-navigation/native';
+import styles from './_styles'
 
 const Weather = () => {
 
@@ -168,35 +169,5 @@ const Weather = () => {
          
     )
 }
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-    },
-
-    thisWeather: {
-        flex: 0.5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    lastWeather: {
-        flex: 0.5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    text: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-    },
-
-})
 
 export default Weather

@@ -11,6 +11,7 @@ import {
     useRecoilValue,
 } from 'recoil'
 import { useIsFocused } from '@react-navigation/native';
+import styles from './_styles'
 
 const Dday = () => {
     const isFocused = useIsFocused();
@@ -31,20 +32,5 @@ const Dday = () => {
     )
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        justifyContent:'center',
-        alignItems: 'center',
-    },
-
-    text: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 35,
-    },
-})
 
 export default Dday

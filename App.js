@@ -4,7 +4,7 @@ import React from 'react';
 import { RecoilRoot } from "recoil";
 
 import Main from './screens/main'
-import Setting from './screens/Setting/Setting'
+import Setting from './screens/Setting/setting'
 
 const Stack = createNativeStackNavigator();
 
