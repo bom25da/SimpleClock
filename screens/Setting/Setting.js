@@ -9,7 +9,8 @@ import {
     clockCodeState, 
     fontModalState, 
     fontCodeState,
-    aboutMeModalState} from '../../state.js'
+    aboutMeModalState,
+} from '../../state.js'
 import {
     RecoilRoot,
     atom,
@@ -17,7 +18,7 @@ import {
     useRecoilState,
     useRecoilValue,
 } from 'recoil'
-import styles from './_styles'
+import {styles, textStyles} from './_styles'
 //import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import { useIsFocused } from '@react-navigation/native';
@@ -46,8 +47,8 @@ const Setting = () => {
     }
 
     const fontName = {
-        dotum: '돋움체',
-        gothic: '고딕체',
+        yuni: 'Y유니버스체',
+        kangwon: '강원교육모두체',
     }
 
     useEffect(() => {
@@ -114,11 +115,11 @@ const Setting = () => {
                                 setFontModal(false)}}
                             value={fontCode}>
                             <RadioButton.Item
-                                value="dotum"
-                                label="돋움체" />
+                                value="yuni"
+                                label="Y유니버스체" />
                             <RadioButton.Item
-                                value="gothic"
-                                label="고딕체" />
+                                value="kangwon"
+                                label="강원교육모두체" />
                         </RadioButton.Group>
                     </View>
             </Modal>
@@ -134,24 +135,24 @@ const Setting = () => {
                     </Pressable >
                     <View style={styles.modalView_ab}>
                         <View style={styles.ab_modal_content_1}>
-                            <Text style={styles.ab_modal_text}>
+                            <Text style={textStyles(fontCode).ab_modal_text}>
                                 기획자
                             </Text>
-                            <Text style={styles.ab_modal_text}>
+                            <Text style={textStyles(fontCode).ab_modal_text}>
                                 정운(Jung Woon)
                             </Text>
                         </View>
                         <View style={styles.ab_modal_content_2}>
-                            <Text style={styles.ab_modal_text}>
+                            <Text style={textStyles(fontCode).ab_modal_text}>
                                 개발자
                             </Text>
-                            <Text style={styles.ab_modal_text}>
+                            <Text style={textStyles(fontCode).ab_modal_text}>
                                 권경원(Kwon Kyungwon)
                             </Text>
                         </View>
                         <View style={styles.ab_modal_bottom}>
                             <TouchableOpacity onPress={() => setAboutMeModal(false)}>
-                                <Text style={styles.ab_modal_text}>닫기</Text>
+                                <Text style={textStyles(fontCode).ab_modal_text}>닫기</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -160,31 +161,31 @@ const Setting = () => {
             <View style={styles.top} />
             <View style={styles.set_1}>
                 <View style={styles.set_1_1}>
-                    <Text style={styles.text}>시계</Text>
+                    <Text style={textStyles(fontCode).text}>시계</Text>
                 </View>
                 <View style={styles.set_1_2}>
                     <TouchableOpacity onPress={() => setClockModal(true)}>
                         <View>
-                            <Text style={styles.modalText}>{clockName[clockCode]}</Text>
+                            <Text style={textStyles(fontCode).modalText}>{clockName[clockCode]}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>                
             </View>
             <View style={styles.set_2}>
                 <View style={styles.set_2_1}>
-                    <Text style={styles.text}>글씨체</Text>
+                    <Text style={textStyles(fontCode).text}>글씨체</Text>
                 </View>
                 <View style={styles.set_2_2}>
                     <TouchableOpacity onPress={() => setFontModal(true)}>
                         <View>
-                            <Text style={styles.modalText}>{fontName[fontCode]}</Text>
+                            <Text style={textStyles(fontCode).modalText}>{fontName[fontCode]}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.set_3}>
                 <View style={styles.set_3_1}>
-                    <Text style={styles.text}>명언</Text>
+                    <Text style={textStyles(fontCode).text}>명언</Text>
                 </View>
                 <View style={styles.set_3_2}>
                     <Switch
@@ -198,7 +199,7 @@ const Setting = () => {
             </View>
             <View style={styles.set_4}>
                 <View style={styles.set_4_1}>
-                    <Text style={styles.text}>주말 D-Day</Text>
+                    <Text style={textStyles(fontCode).text}>주말 D-Day</Text>
                 </View>
                 <View style={styles.set_4_2}>
                     <Switch
@@ -213,7 +214,7 @@ const Setting = () => {
             <View style={styles.set_5}>
                 <View style={styles.set_5_1}>
                     <TouchableOpacity onPress={() => setAboutMeModal(true)}>
-                        <Text style={styles.text}>About Me</Text>
+                        <Text style={textStyles(fontCode).text}>About Me</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.set_5_2}>

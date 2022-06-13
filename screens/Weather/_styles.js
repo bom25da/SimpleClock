@@ -21,13 +21,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    text: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-    },
-
 })
 
-export default styles
+const textStyles = (fontCode) => {
+    
+    return StyleSheet.create({
+        text: {
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+            fontSize: 20,
+        },
+    })
+}
+
+export {styles, textStyles}

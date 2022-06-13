@@ -51,14 +51,6 @@ const styles = StyleSheet.create({
         top: 120, left: 30, right: 30, bottom: 120,
     },
 
-    modalText: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-        margin: 10,
-    },
-
     top: {
         flex: 0.1,
     },
@@ -191,25 +183,39 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
 
-    ab_modal_text: {
-        color: 'black',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 20,
-        margin: 10,
-    },
-
     bottom: {
         flex: 0.1,
     },
-
-    text: {
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-        fontSize: 40,
-        margin: 10,
-    },
 })
 
-export default styles
+const textStyles = (fontCode) => {
+    
+    return StyleSheet.create({
+
+        modalText: {
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+            fontSize: 20,
+            margin: 10,
+        },
+
+        ab_modal_text: {
+            color: 'black',
+            alignItems: 'center',
+            fontFamily: fontCode,
+            fontSize: 20,
+            margin: 10,
+        },
+
+        text: {
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+            fontSize: 40,
+            margin: 10,
+        },
+    })
+}
+
+export {styles, textStyles}

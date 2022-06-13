@@ -21,34 +21,39 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    // Text
-    dctext_date: {
-        fontSize: 40,
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-    },
-
-    dctext_time: {
-        fontSize: 150,
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-    },
-
     left: {
         flex: 0.4,
         //backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center'
     },
-
-    actext_time: {
-        fontSize: 25,
-        color: 'white',
-        alignItems: 'center',
-        fontFamily: 'YUniverse-L',
-    },
 })
 
-export default styles
+const textStyles = (fontCode) => {
+    
+    return StyleSheet.create({
+        // Text
+        dctext_date: {
+            fontSize: 40,
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+        },
+
+        dctext_time: {
+            fontSize: 150,
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+        },
+        
+        actext_time: {
+            fontSize: 25,
+            color: 'white',
+            alignItems: 'center',
+            fontFamily: fontCode,
+        },
+    })
+}
+
+export {styles, textStyles}

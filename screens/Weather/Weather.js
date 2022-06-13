@@ -4,7 +4,7 @@ import Geolocation from 'react-native-geolocation-service';
 import axios from "axios";
 import moment from 'moment';
 import "moment/locale/ko";
-import {isLoadingState, thisWetState, lastWetState} from '../../state.js'
+import {isLoadingState, thisWetState, lastWetState, fontCodeState} from '../../state.js'
 import {
     RecoilRoot,
     atom,
@@ -13,7 +13,7 @@ import {
     useRecoilValue,
 } from 'recoil'
 import { useIsFocused } from '@react-navigation/native';
-import styles from './_styles'
+import {styles, textStyles} from './_styles'
 
 const Weather = () => {
 
@@ -22,6 +22,7 @@ const Weather = () => {
     const [thisWet, setThisWet] = useRecoilState(thisWetState); // 오늘날씨
     const [lastWet, setLastWet] = useRecoilState(lastWetState); // 어제날씨
     const isFocused = useIsFocused();
+    let fontCode = useRecoilValue(fontCodeState)
 
     const geoLocation = () => {
         let gpsOptions = {
@@ -104,7 +105,17 @@ const Weather = () => {
     }    
 
     useEffect(() => {
-        getWeather()
+
+        // 최초 날씨 호출
+        getWeather();
+
+        // 1분 간격으로 업데이트함
+        const weatherId = setInterval(getWeather, 60000);
+
+        // 클린업
+        return function cleanup() {
+            clearInterval(weatherId);
+        };
     },[isFocused]);
 
     /*
@@ -133,27 +144,27 @@ const Weather = () => {
     return(
         <View style = {styles.container}>
             
-            {isLoading ? <Text style={styles.text}> isLoading... </Text> :
+            {isLoading ? <Text style={textStyles(fontCode).text}> isLoading... </Text> :
             <>
                 <View style = {styles.lastWeather}>
-                    <Text style={styles.text}>Yesterday</Text>
+                    <Text style={textStyles(fontCode).text}>Yesterday</Text>
                     <Image
                         source={{uri: `http://125.128.10.133/resource/img/${lastWet.icon}.png`}}
                         //source={imgParse[lastWet.icon]}
                         resizeMode='center'
                         style={{width: 100, height: 100, margin: 5}}
                     />
-                    <Text style={styles.text}>{Math.round(lastWet.temp)}℃</Text>  
+                    <Text style={textStyles(fontCode).text}>{Math.round(lastWet.temp)}℃</Text>  
                 </View>
                 <View style = {styles.thisWeather}>
-                    <Text style={styles.text}>Today</Text>
+                    <Text style={textStyles(fontCode).text}>Today</Text>
                     <Image
                         source={{uri: `http://125.128.10.133/resource/img/${thisWet.icon}.png`}}
                         //source={imgParse[thisWet.icon]}
                         resizeMode='center'
                         style={{width: 100, height: 100, margin: 5}}
                     />
-                    <Text style={styles.text}>{Math.round(thisWet.temp)}℃</Text>  
+                    <Text style={textStyles(fontCode).text}>{Math.round(thisWet.temp)}℃</Text>  
                 </View>
                 
                 {/* <Text style={styles.text}>latitude: {latitude}</Text>

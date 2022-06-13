@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import {Svg, Line, Circle} from 'react-native-svg';
 import moment from 'moment';
 import "moment/locale/ko";
-import {timeState, clockCodeState} from '../../state.js';
+import {timeState, clockCodeState, fontCodeState} from '../../state.js';
 import {
     RecoilRoot,
     atom,
@@ -11,11 +11,12 @@ import {
     useRecoilState,
     useRecoilValue,
 } from 'recoil'
-import styles from './_styles'
+import {styles, textStyles} from './_styles'
 
 const Clock = () => {
     const [time, setTime]=useRecoilState(timeState)
     let ClockType = useRecoilValue(clockCodeState)
+    let fontCode = useRecoilValue(fontCodeState)
 
     function refreshClock() {
         setTime(moment());
@@ -32,10 +33,10 @@ const Clock = () => {
         return(
             <View style = {styles.container}>
                 <View style = {styles.top}>
-                    <Text style={styles.dctext_date}>{time.format('MM/DD(ddd)')}</Text>
+                    <Text style={textStyles(fontCode).dctext_date}>{time.format('MM/DD(ddd)')}</Text>
                 </View>
                 <View style = {styles.bottom}>
-                    <Text style={styles.dctext_time}>{time.format('hhmm')}</Text>
+                    <Text style={textStyles(fontCode).dctext_time}>{time.format('hhmm')}</Text>
                 </View>
             </View>
         )
@@ -46,7 +47,7 @@ const Clock = () => {
         return (
             <View style={styles.left}>
 
-                <Text style={styles.actext_time}>
+                <Text style={textStyles(fontCode).actext_time}>
                     {time.format('MM월 DD일 (ddd)')}
                 </Text>
 

@@ -6,6 +6,8 @@ import {
     useRecoilValue,
 } from 'recoil'
 
+import {AppState} from 'react-native'
+
 import moment from 'moment';
 
 const timeState = atom({
@@ -73,12 +75,17 @@ const fontModalState = atom({
 
 const fontCodeState = atom({
     key: 'fontCode',
-    default: 'dotum',
+    default: 'yuni',
 })
 
 const aboutMeModalState = atom({
     key: 'aboutMeModal',
     default: false,
+})
+
+const appState = atom({
+    key: 'app',
+    default: AppState.currentState,
 })
 
 export {
@@ -95,4 +102,5 @@ export {
     fontModalState,
     fontCodeState,
     aboutMeModalState,
+    appState,
 }

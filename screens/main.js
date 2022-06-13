@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Image, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { Image, View, StyleSheet, Button, TouchableOpacity, AppState } from 'react-native';
 //import Clock from './src/Clock/Clock_Type1.js';
 import Clock from './Clock/clock.js';
 import Weather from './Weather/weather.js';
@@ -10,12 +10,32 @@ import { useDimensions, useDeviceOrientation } from '@react-native-community/hoo
 //import Orientation from 'react-native-orientation-locker';
 //import { useIsFocused } from '@react-navigation/native';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import {
+    RecoilRoot,
+    atom,
+    selector,
+    useRecoilState,
+    useRecoilValue,
+} from 'recoil'
+import {appState} from '../state.js'
 
 const Main = ({navigation}) => {
     const { landscape } = useDeviceOrientation();
     //const isFocused = useIsFocused();
 
-    
+    const [app, setApp] = useRecoilState(appState);
+
+    const handleAppStateChange = (state) => {
+        setApp(state);
+    }
+
+    useEffect(() => {
+        AppState.addEventListener('change', handleAppStateChange);
+        return (() => {
+            AppState.remove('change', handleAppStateChange);
+        })
+    }, []);
+
     useEffect( () => {
         return changeNavigationBarColor('#000000', true);
     },[]);
@@ -176,13 +196,13 @@ const hStyles = StyleSheet.create({
     },
 
     weather: {
-        flex: 0.8,
+        flex: 0.75,
         //backgroundColor: 'red',
         justifyContent: 'center',
     },
 
     wiseSaying: {
-        flex: 0.1,
+        flex: 0.15,
         //backgroundColor: 'red',
         justifyContent: 'center',
     },
