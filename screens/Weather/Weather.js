@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Text, View, StyleSheet, Alert, Image } from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from "axios";
 import moment from 'moment';
@@ -34,9 +34,30 @@ const Weather = () => {
         })        
     }
 
+    const getLocationPermission = async() => {
+        
+        try {
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+              {
+                'title': 'TODAY FOR ME',
+                'message': 'TODAY FOR ME access to your location '
+              }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+              console.log("You can use the location")
+              //alert("You can use the location");
+            } else {
+              console.log("location permission denied")
+              //alert("Location permission denied");
+            }
+          } catch (err) {
+            console.warn(err)
+          }
+    }
+
     const getWeather = async() => {
         try {
-
             const position = await geoLocation()
 
             if(position.coords.latitude != null && position.coords.longitude != null)
@@ -106,8 +127,13 @@ const Weather = () => {
 
     useEffect(() => {
 
-        // 최초 날씨 호출
-        getWeather();
+        (async() => {
+            // 위치 권한 얻기
+            await getLocationPermission();
+
+            // 최초 날씨 호출
+            await getWeather();
+        }) ();
 
         // 1분 간격으로 업데이트함
         const weatherId = setInterval(getWeather, 60000);

@@ -10,6 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@babel/traverse": "7.18.5",
+    "@react-native-community/cli-debugger-ui": "^8.0.0",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/hooks": "2.8.1",
     "@react-navigation/native": "^6.0.10",
